@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2006
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{A0786B88-2ADB-4C21-ABE8-AA2D79766269}") = "Visual Novel Test", "Visual Novel Test\Visual Novel Test.phpproj", "{A0212000-E51E-4DB5-BE6B-7266B9E476FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0212000-E51E-4DB5-BE6B-7266B9E476FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0212000-E51E-4DB5-BE6B-7266B9E476FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E70835B0-A53B-42E2-8BA9-DFED4FD7C8F4}
+	EndGlobalSection
+EndGlobal
