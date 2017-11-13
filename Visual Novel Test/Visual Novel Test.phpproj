@@ -21,5 +21,12 @@
   <ItemGroup>
     <Folder Include="css\" />
     <Folder Include="js\" />
+    <Folder Include="json\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\VisualNovel.css" />
+    <Content Include="index.html" />
+    <Content Include="json\test.json" />
+    <Content Include="js\VisualNovel.js" />
   </ItemGroup>
 </Project>

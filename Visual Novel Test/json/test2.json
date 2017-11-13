@@ -1,0 +1,24 @@
+[
+  [
+    {
+      "type": "background",
+      "src": "http://imgur.com/KbfvL2h.png"
+    },
+    {
+      "type": "text",
+      "text": "fuck"
+    },
+    {
+      "type": "character",
+      "id": "IA",
+      "name": "IA",
+      "src": "https://orig00.deviantart.net/e11b/f/2015/264/f/2/ia_by_sailor_rice-d9afk2w.png"
+    },
+    {
+      "type": "talk",
+      "speakerID": "IA",
+      "text": "IA讚"
+    }
+  ]
+
+]

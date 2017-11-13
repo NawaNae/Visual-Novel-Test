@@ -1,0 +1,40 @@
+﻿[
+  [
+    {
+      "type": "background",
+      "url": "http://imgur.com/KbfvL2h.png"
+    },
+    {
+      "type": "character",
+      "id": "IA",
+      "name": "IA",
+      "url": "https://orig00.deviantart.net/e11b/f/2015/264/f/2/ia_by_sailor_rice-d9afk2w.png"
+    },
+    {
+      "type": "talk",
+      "speakerID": "IA",
+      "text": "IA讚"
+    },
+    {
+      "type": "talk",
+      "speakerID": "IA",
+      "text": "你好"
+    },
+    {
+      "type": "show",
+      "object": "text"
+    },
+    {
+      "type": "text",
+      "text": "12345"
+    },
+    {
+      "type": "text",
+      "text": "456"
+    },
+    {
+      "type": "hide",
+      "object" : "text"
+    }
+  ]
+]

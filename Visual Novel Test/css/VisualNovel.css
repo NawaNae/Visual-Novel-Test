@@ -1,0 +1,61 @@
+﻿*{
+    font-family:微軟正黑體Litght,微軟正黑體;
+  
+}
+.visualNovel
+{
+    height:100%;
+    width:100%;
+    display:block;
+    background:rgba(0,0,0,1);
+    z-index:10;
+}
+    .visualNovel .background {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 11;
+    }
+
+    .visualNovel .characterImage {
+        position: absolute;
+        height: 100%;
+        z-index: 12;
+    }
+    .visualNovel .nameBox {
+        position: absolute;
+        color: rgb(0, 255, 185);
+        text-shadow: rgb(0, 99, 255) 2px 2px;
+        position: fixed;
+        background: rgba(128, 128, 128, 0.71);
+        width:150px;
+        height:50px;
+        text-align:center;
+        line-height:50px;
+        bottom:calc(30% + 50px);
+        left:50px;
+        z-index: 13;
+    }
+    .visualNovel .dialog {
+        padding: 10px 30px;
+        position: absolute;
+        color: navajowhite;
+        bottom: 10px;
+        font-size: 30px;
+        background: rgba(0, 9, 38, 0.67);
+        width: calc(100% - 40px);
+        min-height: 30%;
+        z-index: 14;
+    }
+    .visualNovel .voiceOver {
+        position: absolute;
+        color: antiquewhite;
+        background: rgba(0,0,0,0.8);
+        font-size: 35px;
+        text-align: center;
+        height: 100%;
+        width: 100%;
+        display: none;
+        z-index: 15;
+    }
+
