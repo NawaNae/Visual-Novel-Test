@@ -2,14 +2,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Name>Visual_Novel_Test</Name>
-    <ProjectGuid>e0ec4b9e-4367-4422-85f8-63264c023146</ProjectGuid>
+    <ProjectGuid>a0212000-e51e-4db5-be6b-7266b9e476ff</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>
     </RootNamespace>
     <ProjectTypeGuids>{A0786B88-2ADB-4C21-ABE8-AA2D79766269}</ProjectTypeGuids>
     <AssemblyName>Visual Novel Test</AssemblyName>
-    <Runtime>PHP</Runtime>
-    <RuntimeVersion>7.0</RuntimeVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
@@ -19,5 +17,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="index.php" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="css\" />
+    <Folder Include="js\" />
+    <Folder Include="json\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\VisualNovel.css" />
+    <Content Include="index.html" />
+    <Content Include="json\test.json" />
+    <Content Include="js\VisualNovel.js" />
   </ItemGroup>
 </Project>

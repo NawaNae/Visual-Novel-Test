@@ -13,12 +13,75 @@
     {
       "type": "talk",
       "speakerID": "IA",
-      "text": "IA讚"
+      "text": "那我們開始吧，大中天"
     },
     {
       "type": "talk",
       "speakerID": "IA",
-      "text": "你好"
+      "text": "選擇吧!"
+    },
+    {
+      "type": "select",
+      "option": 
+	  [
+        {
+          "text": "自殺",
+          "tag": "end"
+        },
+        {
+          "text": "太太請跟我結婚",
+          "tag": "marry"
+        }
+      ]
+    },
+    {
+      "type": "tag",
+      "tag" :  "marry"
+    }
+    ,
+	{
+		"type" : "show",
+		"object" : "text"
+	}
+	,
+    {
+      "type": "text",
+      "text": "結婚了"
+    },
+    {
+      "type": "text",
+      "text": "破產了"
+    },
+    {
+      "type": "hide",
+      "object": "text"
+    },
+    {
+      "type": "talk",
+      "speakerID": "IA",
+      "text": "要離婚、要贍養費、要尊嚴"
+    }
+  ],
+  [
+    {
+      "type": "background",
+      "url": "http://imgur.com/KbfvL2h.png"
+    },
+    {
+      "type": "character",
+      "id": "IA",
+      "name": "IA",
+      "url": "https://orig00.deviantart.net/e11b/f/2015/264/f/2/ia_by_sailor_rice-d9afk2w.png"
+    },
+    {
+      "type": "talk",
+      "speakerID": "IA",
+      "text": "絕食五小時"
+    },
+    {
+      "type": "talk",
+      "speakerID": "IA",
+      "text": "好餓R"
     },
     {
       "type": "show",
@@ -26,15 +89,19 @@
     },
     {
       "type": "text",
-      "text": "12345"
+      "text": "法院判你輸"
     },
     {
       "type": "text",
-      "text": "456"
+      "text": "人生GG"
     },
     {
       "type": "hide",
-      "object" : "text"
+      "object": "text"
+    },
+    {
+      "type": "tag",
+      "tag": "end"
     }
   ]
 ]

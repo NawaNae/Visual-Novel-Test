@@ -1,24 +1,112 @@
-[
+﻿[
   [
     {
-      "type": "background",
-      "src": "http://imgur.com/KbfvL2h.png"
-    },
-    {
-      "type": "text",
-      "text": "fuck"
+      "type": "select",
+      "text": "請選擇一個人物",
+      "option": [
+        {
+          "text": "IA",
+          "tag": "NEXT_STEP"
+        },
+        {
+          "text": "Android Robot",
+          "tag": "Android Robot"
+        }
+      ]
     },
     {
       "type": "character",
       "id": "IA",
       "name": "IA",
-      "src": "https://orig00.deviantart.net/e11b/f/2015/264/f/2/ia_by_sailor_rice-d9afk2w.png"
+      "url": "https://orig00.deviantart.net/e11b/f/2015/264/f/2/ia_by_sailor_rice-d9afk2w.png"
+    },
+    {
+      "type": "jump",
+      "tag": "jAndroid"
+    },
+    {
+      "type": "tag",
+      "tag": "Android Robot"
+    },
+    {
+      "type": "character",
+      "id": "Android Robot",
+      "name": "Android Robot",
+      "url": "http://dc942d419843af05523b-ff74ae13537a01be6cfec5927837dcfe.r14.cf1.rackcdn.com/wp-content/uploads/Android-logo.png"
+    },
+    {
+      "type": "tag",
+      "tag": "jAndroid"
     },
     {
       "type": "talk",
-      "speakerID": "IA",
-      "text": "IA讚"
+      "text": "那我們開始吧，大中天"
+    },
+    {
+      "type": "talk",
+      "text": "選背景吧!"
+    },
+    {
+      "type": "select",
+      "text": "請選擇一個背景",
+      "option": [
+        {
+          "text": "資工系日常",
+          "tag": "NEXT_STEP"
+        },
+        {
+          "text": "星空背景",
+          "tag": "星空背景"
+        },
+        {
+          "text": "愛笑認同",
+          "tag": "愛笑認同"
+        }
+      ]
+    },
+    {
+      "type": "background",
+      "url": "http://i.imgur.com/5BY55A0.png"
+    },
+    {
+      "type": "jump",
+      "tag": "afterSelectBG"
+    },
+    {
+      "type": "tag",
+      "tag": "星空背景"
+    },
+    {
+      "type": "background",
+      "url": "http://imgur.com/MbQzy8x.png"
+    },
+    {
+      "type": "jump",
+      "tag": "afterSelectBG"
+    },
+    {
+      "type": "tag",
+      "tag": "愛笑認同"
+    },
+    {
+      "type": "background",
+      "url": "http://www.sec.ntut.edu.tw/ezfiles/11/1011/pictures/639/part_39834_1873260_96601.jpg"
+    },
+    {
+      "type": "jump",
+      "tag": "afterSelectBG"
+    },
+    {
+      "type": "tag",
+      "tag": "afterSelectBG"
+    },
+	{
+      "type": "talk",
+      "text": "給您換了"
+    },
+    {
+      "type": "tag",
+      "tag": "end"
     }
   ]
-
 ]

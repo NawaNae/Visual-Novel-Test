@@ -2,41 +2,54 @@
     font-family:微軟正黑體Litght,微軟正黑體;
   
 }
-.visualNovel
-{
-    height:100%;
-    width:100%;
-    display:block;
-    background:rgba(0,0,0,1);
-    z-index:10;
+.visualNovel {
+    position:relative;
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+    display: block;
+    background: rgba(0,0,0,1);
 }
+    .visualNovel .options ul {
+        list-style: none;
+    }
+    .visualNovel li.option {
+        text-align:center;
+        color:darkgrey;
+        font-size:50px;
+        line-height:60px;
+    }
+    .visualNovel button {
+        z-index: 30;
+        position: absolute;
+        left: 10px;
+    }
     .visualNovel .background {
+        z-index: 11;
         position: absolute;
         width: 100%;
         height: 100%;
-        z-index: 11;
     }
-
     .visualNovel .characterImage {
+        z-index: 12;
         position: absolute;
         height: 100%;
-        z-index: 12;
     }
     .visualNovel .nameBox {
+        z-index: 13;
         position: absolute;
         color: rgb(0, 255, 185);
-        text-shadow: rgb(0, 99, 255) 2px 2px;
-        position: fixed;
+        text-shadow: rgb(0, 16, 73) 0px 0px 4px;
         background: rgba(128, 128, 128, 0.71);
-        width:150px;
-        height:50px;
-        text-align:center;
-        line-height:50px;
-        bottom:calc(30% + 50px);
-        left:50px;
-        z-index: 13;
+        width: 150px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        bottom: calc(30% + 50px);
+        left: 50px;
     }
     .visualNovel .dialog {
+        z-index: 14;
         padding: 10px 30px;
         position: absolute;
         color: navajowhite;
@@ -45,9 +58,9 @@
         background: rgba(0, 9, 38, 0.67);
         width: calc(100% - 40px);
         min-height: 30%;
-        z-index: 14;
     }
-    .visualNovel .voiceOver {
+    .visualNovel .voiceOver,.visualNovel .options {
+        z-index: 15;
         position: absolute;
         color: antiquewhite;
         background: rgba(0,0,0,0.8);
@@ -56,6 +69,74 @@
         height: 100%;
         width: 100%;
         display: none;
-        z-index: 15;
+    }
+    .visualNovel .screenChapter {
+        z-index: 16;
+        display: none;
+        position: absolute;
+        color: rgb(0, 2, 21);
+        background: rgb(255, 232, 194);
+        width: 100%;
+        height: 100%;
+        line-height: 400px;
+        font-size: 100px;
+    }
+.visualNovelSpinner {
+    z-index: 17;
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    width: 40px;
+    height: 40px;
+    margin: 100px auto;
+    background-color: rgb(255, 149, 211);
+    border-radius: 100%;
+    -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+    animation: sk-scaleout 1.0s infinite ease-in-out;
+}
+.visualNovel .options
+{
+  z-index:18;
+}
+.visualNovel .options .option{
+  box-shadow: 0 0 2px 2px black;
+  background-color: rgba(0,0,0,0.6);
+}
+.visualNovel .options .option:hover{
+  box-shadow: 0 0 2px 2px black, inset 0px 1px 1px 0px rgba(255, 255, 255, 0.3);
+  background-color: rgba(0,0,0,0.6);
+}
+.visualNovel .screenCover {
+    z-index: 19;
+    display: none;
+    position: absolute;
+    color: rgb(0, 2, 21);
+    background: rgb(255, 232, 194);
+    width: 100%;
+    height: 100%;
+    line-height: 400px;
+    font-size: 100px;
+}
+@-webkit-keyframes sk-scaleout {
+    0% {
+        -webkit-transform: scale(0)
     }
 
+    100% {
+        -webkit-transform: scale(1.0);
+        opacity: 0;
+    }
+}
+
+@keyframes sk-scaleout {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    100% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+        opacity: 0;
+    }
+}

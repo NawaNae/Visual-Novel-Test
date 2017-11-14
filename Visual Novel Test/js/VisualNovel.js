@@ -1,5 +1,9 @@
-if(typeof novelList == "undefined")
+if(typeof novelList == "undefined")//新增小說列表
     var novelList = new Array();
+
+$(document).ready(function () {
+    initialVisualNovel();
+});//html完全載入
 
 function initialVisualNovel()
 {
@@ -10,119 +14,134 @@ function initialVisualNovel()
             Novel = new VisualNovel();
             var startBtn = document.createElement("button");
             startBtn.innerText = "START";
-            startBtn.onclick = () => { Novel.start(); }
-            ele.append(startBtn);
+
+            startBtn.dataset.index = novelList.length;
+            startBtn.onclick = () => { novelList[parseInt(startBtn.dataset.index)].start(); }
+            ele.appendChild(startBtn);
             novelList.push(Novel);
             Novel.contentSrc = ele.dataset.src;
             Novel.appendTo(ele);
         });
 
-}
-$(document).ready(function () {
-    initialVisualNovel();
-});
+} //替換標籤函數
 
 class VisualNovel {
     constructor() {
-        this._content = new Object();
-        this._background = document.createElement("div");
+        this._content = new Object();//JSON故事內容
+        this._background = document.createElement("div");//背景
         this._background.classList.add("background");
-        this._chap = 0;
-        this._cmd = 0;
-        this.character = new Character();
+        this._chap = 0;//章節計數
+        this._cmd = 0;//指令計數
+        this._screenCover = document.createElement("div");//螢幕覆蓋
+        this._screenCover.classList.add("screenCover");
+        this._screenChapter = document.createElement("div");//章節覆蓋
+        this._screenChapter.classList.add("screenChapter");
+        this._screenChapter.onclick = () => { this.hideScreenChapter() };//點一次就隱藏
+        this.character = new Character();//角色物件
         this.dialog = document.createElement("div");
-        this.dialog.classList.add("dialog")
+        this.dialog.classList.add("dialog")//對話框
+        this.spinner = document.createElement("div");//點擊提示
+        this.spinner.classList.add("visualNovelSpinner");
         this.voiceOver = document.createElement("div");
-        this.voiceOver.classList.add("voiceOver");
+        this.voiceOver.classList.add("voiceOver");//旁白
+        this.options=document.createElement("div")//選項
+        this.options.classList.add("options");
         this.father;
     }
-    set contentSrc(url) {
-        var that = this;
-        $.getJSON(url, data => {
-            that._content  = data;
-        })
-        
+    isWaitingCmd(cmd) {
+        return cmd.type == "text" || cmd.type == "talk"  || cmd.type == "select";
     }
-    set backgroundImage(url) {
-        var str = "url('" + url + "')";
-        this._background.style.background = str ;
-    }
-    get backgroundImage() {
-        return window.getComputeStyle(this._background).getPropertyValue("background-image");
-    }
-    set dialogText(text) {
-        this.dialog.innerText = text;
-    }
-    get dialogText() {
-        return this.dialog.innerText;
-    }
-    set VoiceOverText(text) {
-        this.voiceOver.innerText = text;
-    }
-    get VoiceOverText() {
-        return this.voiceOver.innerText;
-    }
-
-    showVoiceOver() {
-        this.show(this.voiceOver);
-    }
-    hideVoiceOver() {
-        this.hide(this.voiceOver);
-    }
-    showDialog() {
-        this.show(this.dialog);
-    }
-    hideDialog() {
-        this.hide(this.dialog);
-    }
-    showCharacter() {
-        this.character.show();
-    }
-    hideCharacter() {
-        this.character.hide();
-    }
-    show(htmElement) {
-        htmElement.style.display = "block";
-    }
-    hide(htmElement) {
-        htmElement.style.display = "none";
-    }
-    isWaitingCmd(cmd)
-    {
-        return cmd.type == "text" || cmd.type == "talk";
-    }
-    next()
-    {
+    next() {
         var end = false;
         do {
-            if (this._cmd >= this._content[this._chap].length)//���`���� 
-                this._cmd = 0, this._chap++;
-            if (this._chap >= this._content.length)//�G�Ƶ���
+            if (this._cmd >= this._content[this._chap].length)//章節結束 
             {
-                end = true;
+                this._cmd = 0, this._chap++;
+                this.showScreenChapter("第" + (this._chap) + "章");
+                if (this._chap >= this._content.length)//故事結束
+                {
+                    end = true;
+                    this.hideScreenChapter();
+                }
                 break;
             }
             var cmd = this._content[this._chap][this._cmd];
 
-            this.parseCmd(cmd);//������e���O
+            this.parseCmd(cmd);//執行當前指令
 
-             this._cmd++;//�U�@�B�J
-        } while (!this.isWaitingCmd(cmd))//�p�G�ӨB�J���ݭn���ݨϥΪ��[�� �h�~��
-        if (end)
+            this._cmd++;//下一步驟
+            
+        } while (!this.isWaitingCmd(cmd))//如果該步驟不需要等待使用者觀看 則繼續
+        if (end)//若故事結束呼叫end()
             this.end();
-    }
-    end()
-    {
-        //do something
+        else//非結束時結尾
+            this.showSpinner();//顯示點擊提示
+    }   
+    end() {
+        this.fatherClickOff();//關閉有效範圍的點擊事件
+        this.screenCoverText = "End";
+        this.showScreenCover();
     }
     start() {
+        this.reset();
+    }
+    reset()
+    {
         this._chap = 0;
         this._cmd = 0;
-        var that = this;
-        this.father.onclick = () => { that.next() };
+        this.character.reset();
+        this.hideOptions();//隱藏選項
+        this.voiceOverText = "";//清空旁白
+        this.hideVoiceOver();//隱藏旁白
+        this.showCharacter();//顯示角色
+        this.showDialog("");//清空並顯示對話框
+        this.hideScreenChapter();//隱藏章節
+        this.backgroundImage = null;
+        this.hideScreenCover();//開始時隱藏遮蔽
+        this.fatherClickOn();//開啟有效範圍的點擊事件
     }
-    parseCmd(cmd)
+    jump(tag)
     {
+        if(tag!="NEXT_STEP")//下一步保留字
+            for (var ch = 0, cmd = 0; ch < this._content.length; ch++)
+                for (cmd = 0; cmd < this._content[ch].length; cmd++)
+                    if (this._content[ch][cmd].type == "tag")
+                        if (this._content[ch][cmd].tag == tag)
+                        {
+                            this._chap = ch, this._cmd = cmd;//將搜尋到的章節與指令設置為當前指令
+                            ch = this._content.length;//外迴圈跳脫
+                            break;
+                        }
+        //找不到不變更
+    }
+    select(cmd)
+    {
+        this.fatherClickOff();
+        this.showOptions("");//顯示並清空選項框
+        if (typeof cmd.text != "undefined")
+            this.optionsText = cmd.text;
+        var that = this;
+        var list = document.createElement("ul");
+        this.options.appendChild(list);//插入選項列表外層
+        cmd.option.forEach((ele, index) =>
+        {
+            var item = document.createElement("li");
+            item.classList.add("option");
+            item.innerText = ele.text;
+            //選項點擊事件
+            item.onclick = () =>
+            {
+                
+                that.jump(ele.tag);//跳躍至選項tag
+                list.remove();//list移除
+                that.fatherClickOn();//感應再開
+                that.hideOptions();//隱藏選項
+                
+            }
+            list.appendChild(item);//插入外層
+        });
+    }
+    parseCmd(cmd) {
         switch (cmd.type) {
             case "background":
                 this.backgroundImage = cmd.url;
@@ -135,7 +154,13 @@ class VisualNovel {
                 this.dialogText = cmd.text;
                 break;
             case "text":
-                this.VoiceOverText = cmd.text;
+                this.voiceOverText = cmd.text;
+                break;
+            case "jump":
+                this.jump(cmd.tag);
+                break;
+            case "select":
+                this.select(cmd);
                 break;
             case "show":
                 switch (cmd.object) {
@@ -164,15 +189,139 @@ class VisualNovel {
                 }
         }
     }
+    set contentSrc(url) {
+        var that = this;
+        $.getJSON(url, data => {
+            that._content = data;
+        });
+    }
+    set backgroundImage(url) {
+        var str = "url('" + url + "')";
+        this._background.style.background = str ;
+    }
+    set screenCoverText(text)
+    {
+        this._screenCover.innerText = text;
+    }
+    get screenCoverText()
+    {
+        return this._screenCover.innerText;
+    }
+    get backgroundImage() {
+        return window.getComputeStyle(this._background).getPropertyValue("background-image");
+    }
+    set dialogText(text) {
+        this.dialog.innerText = text;
+    }
+    get dialogText() {
+        return this.dialog.innerText;
+    }
+    set voiceOverText(text) {
+        this.voiceOver.innerText = text;
+    }
+    get voiceOverText() {
+        return this.voiceOver.innerText;
+    }
+    set screenChapterText(text) {
+        this._screenChapter.innerText = text;
+    }
+    get screenChapterText() {
+        return this._screenChapter.innerText;
+    }
+    set optionsText(text) {
+        this.options.innerText = text;
+    }
+    get screenChapterText() {
+        return this.options.innerText;
+    }
+    fatherClickOn()
+    {
+        var that = this;
+        this.father.onclick = () => { that.hideSpinner(); that.next(); };//增加點擊事件
+    }
+    fatherClickOff()
+    {
+        this.father.onclick = null;//清除事件
+    }
+
+    showScreenCover(text)
+    {
+        if (typeof text != "undefined")
+            this.screenCoverText = text;
+        this.show(this._screenCover);
+    }
+    hideScreenCover()
+    {
+        this.hide(this._screenCover);
+    }
+    showScreenChapter(text) {
+        if (typeof text != "undefined")//讓text成為可選
+            this.screenChapterText = text;
+        this.show(this._screenChapter);
+    }
+    hideScreenChapter() {
+        this.hide(this._screenChapter);
+    }
+    showVoiceOver(text) {
+        if (typeof text != "undefined")
+            this.voiceOverText = text;
+        this.show(this.voiceOver);
+    }
+    hideVoiceOver() {
+        this.hide(this.voiceOver);
+    }
+    showDialog(text) {
+        if (typeof text != "undefined")
+            this.dialogText = text;
+        this.show(this.dialog);
+    }
+    hideDialog() {
+        this.hide(this.dialog);
+    }
+    showCharacter() {
+        this.character.show();
+    }
+    hideCharacter() {
+        this.character.hide();
+    }
+    showSpinner() {
+        this.show(this.spinner);
+    }
+    hideSpinner() {
+        this.hide(this.spinner);
+    }
+    showOptions(text)
+    {
+        if (typeof text != "undefined")
+            this.optionsText = text;
+        this.show(this.options);
+    }
+    hideOptions()
+    {
+        this.hide(this.options);
+    }
+    show(htmElement) {
+        htmElement.style.display = "block";
+    }
+    hide(htmElement) {
+        htmElement.style.display = "none";
+    }
     appendTo(father)
     {
         this.father = father;
-        father.append(this._background);
         this.character.appendTo(father);
-        father.append(this.dialog);
-        father.append(this.voiceOver);
+        father.appendChild(this._background);
+        father.appendChild(this.dialog);
+        father.appendChild(this.voiceOver);
+        father.appendChild(this.spinner);
+        father.appendChild(this._screenChapter);
+        father.appendChild(this.options);
+        father.appendChild(this._screenCover);
+
+
     }
 }
+
 class Character
 {
     constructor()
@@ -182,6 +331,15 @@ class Character
         this._name = "";
         this._nameBox = document.createElement("div");
         this._nameBox.classList.add("nameBox");
+    }
+    appendTo(father) {
+        father.append(this._image);
+        father.append(this._nameBox);
+    }
+    reset()
+    {
+        this.imageUrl = null;
+        this.name = "";
     }
     set imageUrl(src)
     {
@@ -208,7 +366,7 @@ class Character
     {
         return this._name;
     }
-    show ()
+    show()
     {
         this._image.style.display="block";
         this._nameBox.style.display="block";
@@ -217,10 +375,5 @@ class Character
     {
         this._image.style.display="none";
         this._nameBox.style.display="none";
-    }
-    appendTo(father)
-    {
-        father.append(this._image);
-        father.append(this._nameBox);
     }
 }
